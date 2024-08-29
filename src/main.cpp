@@ -1,4 +1,6 @@
 #include "main.h"
+#include "globals.hpp"
+#include "api.h"
 
 /**
  * A callback function for LLEMU's center button.
@@ -74,21 +76,28 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	pros::Motor left_mtr(1);
-	pros::Motor right_mtr(2);
-
 	while (true) {
-		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);  // Prints status of the emulated screen LCDs
-
-
-		int left = master.get_analog(ANALOG_LEFT_Y);
-		int right = master.get_analog(ANALOG_RIGHT_Y);
-		
-		left_mtr = left;
-		right_mtr = right;
+		//friction
+		std::vector<double> left_powers = left_motors.get_power_all();
+		std::vector<double> right_powers = right_motors.get_power_all();
+		printf("%f,%f,%f,%f,%f,%f/n",left_powers[0],left_powers[1],left_powers[2],right_powers[0],right_powers[1],right_powers[2]);
+	//Drivetrain
+		left_motors.move(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
+		right_motors.move(controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
 		pros::delay(20);                         // Run for 20 ms then update
+	
+	//Tipper
+	  if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+		tipper_piston.extend();
+	  } else {
+		tipper_piston.retract();
+	  }
+	  
+	  if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) {
+		tipper_piston.toggle();
+	  } 
+
 	}
+	
 }
+
