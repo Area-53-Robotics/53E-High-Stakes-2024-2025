@@ -1,4 +1,4 @@
-/**
+/*
  * \file main.h
  *
  * Contains common definitions and header files used throughout your PROS
@@ -71,9 +71,7 @@ void opcontrol(void);
 #endif
 
 #ifdef __cplusplus
-/**
- * You can add C++-only headers here
- */
+#include "globals.hpp"
 //#include <iostream>
 #endif
 
