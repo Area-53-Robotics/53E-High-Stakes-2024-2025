@@ -1,7 +1,5 @@
 #include <cstdio>
 
-
-#include "main.cpp"
 #include "main.h"
 #include "pros/rtos.hpp"
 
