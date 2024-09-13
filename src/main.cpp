@@ -87,15 +87,30 @@ void opcontrol() {
 	  } else {
 		intake_motor.move(0);
 	  }
-	}
+
+
+	
+	//Four Bar
+	  if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)) {
+		four_bar_motor.move(127);
+	  } else if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
+		four_bar_motor.move(-127);
+	  } else {
+		four_bar_motor.move(0);
+	  }
+	  
 
 	//Four Bar Limit Switches
 	  if (four_bar_sensor_forwards.get_new_press()) {
-        four_bar_motor.move(127);
+        four_bar_motor.move(0);
     } else if (four_bar_sensor_backwards.get_new_press()) {
 		four_bar_motor.move(0);
 	} else {
 		four_bar_motor.move(0);
+	  }
+	  
 	}
+
+
 }
 
