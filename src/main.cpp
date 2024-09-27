@@ -64,14 +64,14 @@ void opcontrol() {
 		//friction
 		std::vector<double> left_powers = left_motors.get_power_all();
 		std::vector<double> right_powers = right_motors.get_power_all();
-		printf("%f,%f,%f,%f,%f,%f/n",left_powers[0],left_powers[1],left_powers[2],right_powers[0],right_powers[1],right_powers[2]);
+
+		printf("%f,%f,%f,%f,%f,%f\n",left_powers[0],left_powers[1],left_powers[2],right_powers[0],right_powers[1],right_powers[2]);
 	//Drivetrain
 		left_motors.move(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
 		right_motors.move(controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
-		pros::delay(20);                         // Run for 20 ms then update
 	
 	//Tipper
-	  if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) {
+	  if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) { //change to Up arrow and down arrow
 		tipper_piston.extend();
 	  } else {
 		tipper_piston.retract();
@@ -84,31 +84,37 @@ void opcontrol() {
 	//Intake
 	  if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
 		intake_motor.move(127);
+	  } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+		intake_motor.move(-127); 
 	  } else {
 		intake_motor.move(0);
 	  }
-
-
 	
+
 	//Four Bar
-	  if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)) {
+	  if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
 		four_bar_motor.move(127);
-	  } else if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
+	  } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
 		four_bar_motor.move(-127);
 	  } else {
 		four_bar_motor.move(0);
 	  }
-	  
 
-	//Four Bar Limit Switches
+
+
+//Four Bar Limit Switches
+	/*
 	  if (four_bar_sensor_forwards.get_new_press()) {
-        four_bar_motor.move(0);
-    } else if (four_bar_sensor_backwards.get_new_press()) {
-		four_bar_motor.move(0);
-	} else {
-		four_bar_motor.move(0);
+		printf("this works!!\n");
+        four_bar_motor.move(100);
+      } else if (four_bar_sensor_backwards.get_new_press()) {
+		printf("this also works!!\n");
+		//four_bar_motor.move(0);	``	
 	  }
-	  
+*/
+
+	pros::delay(20);                         // Run for 20 ms then update
+
 	}
 
 

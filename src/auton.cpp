@@ -32,7 +32,35 @@ void autonomous() {}
     chassis.moveToPoint(26, -51, 1500); //move to bar and touch it
     chassis.waitUntilDone();
 */
-    
+
+/*
+//Scrimmage Auton Blue Bottom Side Without Four Donuts
+    chassis.setPose(80, -74, 500); 
+    chassis.waitUntilDone();
+    tipper_piston.extend(500); //extend piston
+    pros::delay(100);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(58, -59, 1500, {.forwards = false}); //move backwards to goal
+    chassis.waitUntilDone();
+    chassis.turnToPoint(59, -119, 900); //turn towards donut near the wall
+    chassis.waitUntilDone();
+    chassis.intake_motor.set_value(127); //turn on intake motor
+    chassis.moveToPoint(59., -119, 1500); //move to donut near the wall and intake it, into the goal. 
+    chassis.waintUntilDone();
+    chassis.turnToPoint(116, -122, 900); //turn to the donut on the right near the corner of the field. 
+    chassis.waitUntilDone();
+    chassis.moveToPoint(116, -122, 1500); //move to the donut and intake it and score it on the stake. 
+    //Auton completed. 
+
+//Scrimmage Auton Blue Top Side With Four Donuts
+    chassis.setPose(109, 120, 500);
+    chassis.waitUntilDone(); 
+    tipper_piston.extend(500); //extend piston
+    pros::delay(100);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(60, 63, 1500, {.forwards = false}); //move backwards to goal
+    chassis.waitUntilDone();
+*/
     
 /**
  * Runs the operator control code. This function will be started in its own task
