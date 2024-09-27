@@ -20,4 +20,6 @@ inline pros::adi::DigitalIn four_bar_sensor_backwards ('D');
 
 //Four Bar Descore 
 inline pros::Motor four_bar_motor(18);
+
+
 	

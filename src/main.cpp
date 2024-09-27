@@ -60,6 +60,7 @@ void competition_initialize() {}
  */
 
 void opcontrol() {
+	bool is_drive_reversed = false;
 	while (true) {
 		//friction
 		std::vector<double> left_powers = left_motors.get_power_all();
@@ -69,15 +70,23 @@ void opcontrol() {
 	//Drivetrain
 		left_motors.move(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
 		right_motors.move(controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
-	
+
+		if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
+			controller.rumble(".");
+			is_drive_reversed = !is_drive_reversed;
+		}
+
+		if (is_drive_reversed) {
+			left_motors.move(-127);
+			right_motors.move(-127);
+		} else {
+			left_motors.move(127);
+			right_motors.move(127);
+		}
+    
 	//Tipper
-	  if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) { //change to Up arrow and down arrow
-		tipper_piston.extend();
-	  } else {
-		tipper_piston.retract();
-	  }
 	  
-	  if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) {
+	  if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
 		tipper_piston.toggle();
 	  } 
 
