@@ -76,13 +76,13 @@ void opcontrol() {
 			is_drive_reversed = !is_drive_reversed;
 		}
 
-		if (is_drive_reversed) {
+		/*if (is_drive_reversed) {
 			left_motors.move(-127);
 			right_motors.move(-127);
 		} else {
 			left_motors.move(127);
 			right_motors.move(127);
-		}
+		}*/
     
 	//Tipper
 	  
