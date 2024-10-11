@@ -1,10 +1,13 @@
 #include <cstdio>
-
+#include "lemlib/api.hpp"
 #include "main.h"
 #include "pros/rtos.hpp"
 
 void autonomous() {}
     //printf("offensive side\n"); FIGURE OUT WHAT SIDE THIS IS
+//Testing Auton
+
+
 
 /*
     chassis.setPose(122, -91, 500);
@@ -36,6 +39,7 @@ void autonomous() {}
 /*
 //Scrimmage Auton Blue Bottom Side Without Four Donuts
     chassis.setPose(80, -74, 500); 
+
     chassis.waitUntilDone();
     tipper_piston.extend(500); //extend piston
     pros::delay(100);

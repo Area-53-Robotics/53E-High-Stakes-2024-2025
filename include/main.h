@@ -72,7 +72,7 @@ void opcontrol(void);
 
 #ifdef __cplusplus
 #include "globals.hpp"
-//#include <iostream>
+#include "lemlib/api.hpp"
 #endif
 
 #endif  // _PROS_MAIN_H_

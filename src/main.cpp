@@ -1,4 +1,6 @@
+#include "lemlib/api.hpp"
 #include "main.h"
+#include "globals.hpp"
 
 /**
  * A callback function for LLEMU's center button.
@@ -68,21 +70,28 @@ void opcontrol() {
 
 		printf("%f,%f,%f,%f,%f,%f\n",left_powers[0],left_powers[1],left_powers[2],right_powers[0],right_powers[1],right_powers[2]);
 	//Drivetrain
-		left_motors.move(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
-		right_motors.move(controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
-
 		if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
 			controller.rumble(".");
 			is_drive_reversed = !is_drive_reversed;
 		}
+		int left = (controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
+		int right = (controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
 
-		/*if (is_drive_reversed) {
-			left_motors.move(-127);
-			right_motors.move(-127);
+		if (!is_drive_reversed) {
+			left_motors.move(left);
+			right_motors.move(right);
 		} else {
-			left_motors.move(127);
-			right_motors.move(127);
-		}*/
+			left_motors.move(-right);
+			right_motors.move(-left);
+		}
+
+		/*
+		if (is_drive_reversed) {
+			chassis.tank(-right, -left);
+		} else {
+			chassis.tank(left, right);
+		}
+		*/
     
 	//Tipper
 	  
