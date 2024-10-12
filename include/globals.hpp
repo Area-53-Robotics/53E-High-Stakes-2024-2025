@@ -1,3 +1,4 @@
+#pragma once
 #include "api.h"
 #include "main.h"
 #include "lemlib/api.hpp"
@@ -10,7 +11,7 @@ inline pros::MotorGroup left_motors({-20, -15, -11}, pros::v5::MotorGears::blue)
 inline pros::MotorGroup right_motors({10, 5, 1}, pros::v5::MotorGears::blue);
 
 //Intake
-inline pros::Motor intake_motor (6);
+inline pros::Motor intake_motor(6);
 
 //Tipper  
 inline pros::adi::Pneumatics tipper_piston('A', false); 
@@ -22,11 +23,13 @@ inline pros::adi::Pneumatics tipper_piston('A', false);
 //Four Bar Descore 
 inline pros::Motor four_bar_motor(18);
 
+inline pros::Imu imu(21);
+
 
 inline lemlib::Drivetrain drivetrain(&left_motors, // left motor group
                               &right_motors, // right motor group
                               14.5, // 14.5 inch track width
-                              lemlib::Omniwheel::NEW_4.25, // using new 4" omnis
+                              lemlib::Omniwheel::NEW_4, // using new 4" omnis
                               450, // drivetrain rpm is 360
                               2 // horizontal drift is 2 (for now)
                               );
@@ -39,13 +42,6 @@ inline lemlib::OdomSensors sensors(nullptr, // vertical tracking wheel 1, set to
                             &imu // inertial sensor
                             );
 
-inline lemlib::Chassis chassis(drivetrain,
-                        lateral_controller,
-                        angular_controller,
-                        sensors,
-                        nullptr,
-                        nullptr
-                        );
 
 
 // lateral PID controller
@@ -72,3 +68,11 @@ inline lemlib::ControllerSettings angular_controller(2, // proportional gain (kP
                                               0 // maximum acceleration (slew)
                                               );
 
+inline lemlib::Chassis chassis(drivetrain,
+                        lateral_controller,
+                        angular_controller,
+                        sensors,
+                        nullptr,
+                        nullptr
+                        );
+                        
