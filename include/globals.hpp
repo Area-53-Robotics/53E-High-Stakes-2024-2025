@@ -25,6 +25,8 @@ inline pros::Motor four_bar_motor(18);
 
 inline pros::Imu imu(21);
 
+//Lights
+inline pros::Led led('X', 35);
 
 inline lemlib::Drivetrain drivetrain(&left_motors, // left motor group
                               &right_motors, // right motor group

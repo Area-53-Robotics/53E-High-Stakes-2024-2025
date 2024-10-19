@@ -62,6 +62,8 @@ void competition_initialize() {}
  */
 
 void opcontrol() {
+	led.set_all(#f76560);
+	led.set_all(#88f760);
 	bool is_drive_reversed = false;
 	while (true) {
 		//friction
@@ -70,6 +72,8 @@ void opcontrol() {
 
 		printf("%f,%f,%f,%f,%f,%f\n",left_powers[0],left_powers[1],left_powers[2],right_powers[0],right_powers[1],right_powers[2]);
 	//Drivetrain
+
+
 		if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
 			controller.rumble(".");
 			is_drive_reversed = !is_drive_reversed;
@@ -97,7 +101,12 @@ void opcontrol() {
 	  
 	  if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
 		tipper_piston.toggle();
-	  } 
+	  }
+	if (tipper_piston.get_value()){
+		led.set_all(0x88f760);
+	} else {
+		led.set_all(0xf76560);
+	}
 
 	//Intake
 	  if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
