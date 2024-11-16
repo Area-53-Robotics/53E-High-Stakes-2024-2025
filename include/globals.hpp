@@ -7,23 +7,29 @@ inline pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
 //Drivetrain
 //Motor Groups
-inline pros::MotorGroup left_motors({-20, -15, -11}, pros::v5::MotorGears::blue);
-inline pros::MotorGroup right_motors({10, 5, 1}, pros::v5::MotorGears::blue);
+inline pros::MotorGroup left_motors({-10, -5, -1}, pros::v5::MotorGears::blue);
+inline pros::MotorGroup right_motors({20, 15, 11}, pros::v5::MotorGears::blue);
 
 //Intake
-inline pros::Motor intake_motor(6);
+inline pros::Motor intake_motor(-8);
 
 //Tipper  
 inline pros::adi::Pneumatics tipper_piston('A', false); 
+
+//Lady Brown
+inline pros::Motor lady_brown_motor(-6);
+
+//Rotation Sensor
+inline pros::Rotation rotation_sensor(2);
+
+//Color Sensor
+inline pros::Optical color_sensor('B');
 
 //Limit Switches For Four Bar
 //inline pros::adi::DigitalIn four_bar_sensor_forwards ('B');
 //inline pros::adi::DigitalIn four_bar_sensor_backwards ('D');
 
-//Four Bar Descore 
-inline pros::Motor four_bar_motor(18);
-
-inline pros::Imu imu(21);
+inline pros::Imu imu(4);
 
 //Lights
 inline pros::Led led('X', 35);
@@ -44,12 +50,11 @@ inline lemlib::OdomSensors sensors(nullptr, // vertical tracking wheel 1, set to
                             &imu // inertial sensor
                             );
 
-
-
 // lateral PID controller
-inline lemlib::ControllerSettings lateral_controller(10, // proportional gain (kP)
+inline lemlib::ControllerSettings lateral_controller(
+                                              22, // proportional gain (kP)
                                               0, // integral gain (kI)
-                                              3, // derivative gain (kD)
+                                              15, // derivative gain (kD)
                                               3, // anti windup
                                               1, // small error range, in inches
                                               100, // small error range timeout, in milliseconds
@@ -59,7 +64,8 @@ inline lemlib::ControllerSettings lateral_controller(10, // proportional gain (k
                                               );
 
 // angular PID controller
-inline lemlib::ControllerSettings angular_controller(2, // proportional gain (kP)
+inline lemlib::ControllerSettings angular_controller(
+                                              20, // proportional gain (kP)
                                               0, // integral gain (kI)
                                               10, // derivative gain (kD)
                                               3, // anti windup
@@ -67,7 +73,7 @@ inline lemlib::ControllerSettings angular_controller(2, // proportional gain (kP
                                               100, // small error range timeout, in milliseconds
                                               3, // large error range, in degrees
                                               500, // large error range timeout, in milliseconds
-                                              0 // maximum acceleration (slew)
+                                              10 // maximum acceleration (slew)
                                               );
 
 inline lemlib::Chassis chassis(drivetrain,

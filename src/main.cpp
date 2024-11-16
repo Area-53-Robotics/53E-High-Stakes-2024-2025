@@ -25,10 +25,20 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello PROS User!");
-
-	pros::lcd::register_btn1_cb(on_center_button);
+	 pros::lcd::initialize(); // initialize brain screen
+	 lady_brown_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    chassis.calibrate(); // calibrate sensors
+    // print position to brain screen
+    pros::Task screen_task([&]() {
+        while (true) {
+            // print robot location to the brain screen
+            pros::lcd::print(0, "X: %f", chassis.getPose().x); // x
+            pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
+            pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
+            // delay to save resources
+            pros::delay(20);
+        }
+    });
 }
 
 /**
@@ -65,12 +75,14 @@ void opcontrol() {
 	led.set_all(#f76560);
 	led.set_all(#88f760);
 	bool is_drive_reversed = false;
+	bool is_eject_blue = false;
+	bool is_lift_reversed = true;
 	while (true) {
 		//friction
 		std::vector<double> left_powers = left_motors.get_power_all();
 		std::vector<double> right_powers = right_motors.get_power_all();
 
-		printf("%f,%f,%f,%f,%f,%f\n",left_powers[0],left_powers[1],left_powers[2],right_powers[0],right_powers[1],right_powers[2]);
+		//printf("%f,%f,%f,%f,%f,%f\n",left_powers[0],left_powers[1],left_powers[2],right_powers[0],right_powers[1],right_powers[2]);
 	//Drivetrain
 
 
@@ -89,17 +101,9 @@ void opcontrol() {
 			right_motors.move(-left);
 		}
 
-		/*
-		if (is_drive_reversed) {
-			chassis.tank(-right, -left);
-		} else {
-			chassis.tank(left, right);
-		}
-		*/
-    
-	//Tipper
-	  
+	//Tipper 
 	  if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
+		controller.rumble(".");
 		tipper_piston.toggle();
 	  }
 	if (tipper_piston.get_value()){
@@ -116,34 +120,47 @@ void opcontrol() {
 	  } else {
 		intake_motor.move(0);
 	  }
-	
 
-	//Four Bar
-	  if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
-		four_bar_motor.move(127);
-	  } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-		four_bar_motor.move(-127);
+	//Lady Brown Mech
+	rotation_sensor.set_position(0);
+	  if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
+		rotation_sensor.set_position(0);
+			if (rotation_sensor.get_position() == 0) {
+				lady_brown_motor.move_absolute(60, 127);
+			} else {
+				lady_brown_motor.move(0);
+			}
+	  } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) {
+			is_lift_reversed = !is_lift_reversed;
+			while (controller.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) {
+	 			if (!is_lift_reversed) {
+					lady_brown_motor.move(127);
+	 			} else {
+					lady_brown_motor.move(-70);
+	  			}
+			}	
 	  } else {
-		four_bar_motor.move(0);
-	  }
+		lady_brown_motor.move(0);
+	  } 
+	
+	
+/*
+	//Color Sensor
+	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) {
+		controller.rumble(".");
+		is_eject_blue = !is_eject_blue;
+	}
 
+	if (!is_eject_blue && (optical_sensor.get_hue > 65 && optical_sensor.get_hue < 80)) { //or red depending on match
+		intake_motor.move(0);
+	} else if (is_eject_blue && (optical_sensor.get_hue > 65 && optical_sensor.get_hue < 80)){
+		intake_motor.move(0);
+	} else if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
 
-
-//Four Bar Limit Switches
-	/*
-	  if (four_bar_sensor_forwards.get_new_press()) {
-		printf("this works!!\n");
-        four_bar_motor.move(100);
-      } else if (four_bar_sensor_backwards.get_new_press()) {
-		printf("this also works!!\n");
-		//four_bar_motor.move(0);	``	
-	  }
+	}
 */
-
+	}
 	pros::delay(20);                         // Run for 20 ms then update
 
 	}
-
-
-}
 

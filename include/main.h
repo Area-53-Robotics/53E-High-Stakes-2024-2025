@@ -71,7 +71,6 @@ void opcontrol(void);
 #endif
 
 #ifdef __cplusplus
-#include "globals.hpp"
 #include "lemlib/api.hpp"
 #endif
 
