@@ -17,7 +17,7 @@ inline pros::Motor intake_motor(-8);
 inline pros::adi::Pneumatics tipper_piston('A', false); 
 
 //Lady Brown
-inline pros::Motor lady_brown_motor(-6);
+inline pros::Motor lady_brown_motor(-6, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
 
 //Rotation Sensor
 inline pros::Rotation rotation_sensor(2);
@@ -25,14 +25,10 @@ inline pros::Rotation rotation_sensor(2);
 //Color Sensor
 inline pros::Optical color_sensor('B');
 
-//Limit Switches For Four Bar
-//inline pros::adi::DigitalIn four_bar_sensor_forwards ('B');
-//inline pros::adi::DigitalIn four_bar_sensor_backwards ('D');
-
 inline pros::Imu imu(4);
 
 //Lights
-inline pros::Led led('X', 35);
+//inline pros::Led led('X', 35);
 
 inline lemlib::Drivetrain drivetrain(&left_motors, // left motor group
                               &right_motors, // right motor group

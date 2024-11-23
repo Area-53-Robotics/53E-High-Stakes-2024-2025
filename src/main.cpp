@@ -28,6 +28,7 @@ void initialize() {
 	 pros::lcd::initialize(); // initialize brain screen
 	 lady_brown_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.calibrate(); // calibrate sensors
+	rotation_sensor.set_position(0);
     // print position to brain screen
     pros::Task screen_task([&]() {
         while (true) {
@@ -72,8 +73,8 @@ void competition_initialize() {}
  */
 
 void opcontrol() {
-	led.set_all(#f76560);
-	led.set_all(#88f760);
+	//led.set_all(#f76560);
+	//led.set_all(#88f760);
 	bool is_drive_reversed = false;
 	bool is_eject_blue = false;
 	bool is_lift_reversed = true;
@@ -83,7 +84,7 @@ void opcontrol() {
 		std::vector<double> right_powers = right_motors.get_power_all();
 
 		//printf("%f,%f,%f,%f,%f,%f\n",left_powers[0],left_powers[1],left_powers[2],right_powers[0],right_powers[1],right_powers[2]);
-	//Drivetrain
+		//Drivetrain
 
 
 		if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
@@ -106,12 +107,13 @@ void opcontrol() {
 		controller.rumble(".");
 		tipper_piston.toggle();
 	  }
+	  /*
 	if (tipper_piston.get_value()){
 		led.set_all(0x88f760);
 	} else {
 		led.set_all(0xf76560);
 	}
-
+*/
 	//Intake
 	  if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
 		intake_motor.move(127);
@@ -122,7 +124,6 @@ void opcontrol() {
 	  }
 
 	//Lady Brown Mech
-	rotation_sensor.set_position(0);
 	  if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
 		rotation_sensor.set_position(0);
 			if (rotation_sensor.get_position() == 0) {
@@ -159,8 +160,7 @@ void opcontrol() {
 
 	}
 */
-	}
 	pros::delay(20);                         // Run for 20 ms then update
-
 	}
+}
 

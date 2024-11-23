@@ -24,19 +24,18 @@ void autonomous() {
  //printf("offensive side\n"); FIGURE OUT WHAT SIDE THIS IS
 //Left Corner Auton
     pros::delay(500);
-    move_drivetrain(-100, 400);
+    move_drivetrain(-100, 360);
     pros::delay(500);
     tipper_piston.toggle();
-    pros::delay(1000);
-    intake_motor.move(127);
+    pros::delay(2000);
+    intake_motor.move(100);
     pros::delay(2000);
     intake_motor.move(0);
     turn_drivetrain(-100, 300);
-    intake_motor.move(127);
+    intake_motor.move(115);
     move_drivetrain(100, 300);
     pros::delay(1500);
-    turn_drivetrain(100, 350);
-    move_drivetrain(100, 500);
+   
 
 //Testing Auton
 /*
