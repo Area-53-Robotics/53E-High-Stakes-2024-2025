@@ -9,15 +9,21 @@ second stage : load into first level
 third stage : load into second level
 And then to score use the toggle button left
 */
-int ladyBrownState;
 
-void ladyBrownSwitchState (bool increase) {
-    if (increase) {
-        if (ladyBrownState < 3) ladyBrownState++;
-        else ladyBrownState = 1;
-    } else {
-        if (ladyBrownState > 1) ladyBrownState--;
-        else ladyBrownState = 3;
-    } 
+LadyBrownStates ladyBrownState = StartingState;
+
+void currentTask(void * param) {
+    while (true){
+        if (ladyBrownState==StartingState) {
+            lady_brown_motor.move(((171*100)-rotation_sensor.get_angle()) * 0.009);
+        }
+        if (ladyBrownState==SecondState) {
+            lady_brown_motor.move(((207*100)-rotation_sensor.get_angle()) * 0.025);
+        }
+        if (ladyBrownState==ForwardState) {
+            lady_brown_motor.move(((320*100)-rotation_sensor.get_angle()) * 0.02);
+        }
+        
+    }
+
 }
-

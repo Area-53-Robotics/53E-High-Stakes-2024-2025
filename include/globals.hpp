@@ -17,15 +17,14 @@ inline pros::Motor intake_motor(-8);
 inline pros::adi::Pneumatics tipper_piston('A', false); 
 
 //Lady Brown
-inline pros::Motor lady_brown_motor(-6, pros::v5::MotorGears::blue, pros::v5::MotorUnits::degrees);
+inline pros::Motor lady_brown_motor(-6, pros::v5::MotorGears::green, pros::v5::MotorUnits::degrees);
 
 //Rotation Sensor
 inline pros::Rotation rotation_sensor(2);
 
-//Color Sensor
-inline pros::Optical color_sensor('B');
-
 inline pros::Imu imu(4);
+//Intake Bottom Lift Piston
+inline pros::adi::Pneumatics intake_piston('B', false);
 
 //Lights
 //inline pros::Led led('X', 35);
@@ -61,7 +60,7 @@ inline lemlib::ControllerSettings lateral_controller(
 
 // angular PID controller
 inline lemlib::ControllerSettings angular_controller(
-                                              20, // proportional gain (kP)
+                                              2, // proportional gain (kP)
                                               0, // integral gain (kI)
                                               10, // derivative gain (kD)
                                               3, // anti windup

@@ -1,6 +1,7 @@
 #include "lemlib/api.hpp"
 #include "main.h"
 #include "globals.hpp"
+#include "subsystems_cpp_files/lady_brown.hpp"
 
 /**
  * A callback function for LLEMU's center button.
@@ -29,6 +30,7 @@ void initialize() {
 	 lady_brown_motor.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.calibrate(); // calibrate sensors
 	rotation_sensor.set_position(0);
+	pros::Task lady_brown_task(currentTask);
     // print position to brain screen
     pros::Task screen_task([&]() {
         while (true) {
@@ -36,6 +38,8 @@ void initialize() {
             pros::lcd::print(0, "X: %f", chassis.getPose().x); // x
             pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
             pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
+
+			printf("X: %f, Y: %f, Theta: %f\n", chassis.getPose().x, chassis.getPose().y, chassis.getPose().theta);
             // delay to save resources
             pros::delay(20);
         }
@@ -124,42 +128,15 @@ void opcontrol() {
 	  }
 
 	//Lady Brown Mech
-	  if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) {
-		rotation_sensor.set_position(0);
-			if (rotation_sensor.get_position() == 0) {
-				lady_brown_motor.move_absolute(60, 127);
-			} else {
-				lady_brown_motor.move(0);
-			}
-	  } else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) {
-			is_lift_reversed = !is_lift_reversed;
-			while (controller.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) {
-	 			if (!is_lift_reversed) {
-					lady_brown_motor.move(127);
-	 			} else {
-					lady_brown_motor.move(-70);
-	  			}
-			}	
-	  } else {
-		lady_brown_motor.move(0);
-	  } 
-	
-	
-/*
-	//Color Sensor
-	if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) {
-		controller.rumble(".");
-		is_eject_blue = !is_eject_blue;
-	}
-
-	if (!is_eject_blue && (optical_sensor.get_hue > 65 && optical_sensor.get_hue < 80)) { //or red depending on match
-		intake_motor.move(0);
-	} else if (is_eject_blue && (optical_sensor.get_hue > 65 && optical_sensor.get_hue < 80)){
-		intake_motor.move(0);
-	} else if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
-
-	}
-*/
+	  if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)) {
+		if (ladyBrownState==StartingState) {
+			ladyBrownState=SecondState;
+		} else if (ladyBrownState==SecondState) {
+			ladyBrownState=ForwardState;
+		} else if (ladyBrownState==ForwardState) {
+			ladyBrownState=StartingState;
+		}
+	  }
 	pros::delay(20);                         // Run for 20 ms then update
 	}
 }
