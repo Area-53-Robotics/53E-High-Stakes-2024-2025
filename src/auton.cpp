@@ -3,10 +3,11 @@
 #include "main.h"
 #include "pros/rtos.hpp"
 #include "globals.hpp"
+#include "subsystems_cpp_files/lady_brown.hpp"
 
 void autonomous() {
     //Skills Auton
-  
+  /*
     intake_motor.move(127);
     pros::delay(130);
     intake_motor.move(0);
@@ -66,14 +67,15 @@ void autonomous() {
     chassis.waitUntilDone();
     chassis.moveToPoint(-6, 74, 2500);
     chassis.waitUntilDone();
+*/
 
     //Match Auton Blue left
-    /*
-    chassis.moveToPoint(0, -16, 2500, {.forwards=false});
+  
+    chassis.moveToPoint(0, -22.24, 2500, {.forwards=false});
     chassis.waitUntilDone();
-    chassis.turnToHeading(30, 1000);
+    chassis.turnToHeading(31, 1000);
     chassis.waitUntilDone();
-    chassis.moveToPoint(-12, -35, 1500, {.forwards=false, .maxSpeed=50});
+    chassis.moveToPoint(-7.35, -33, 1500, {.forwards=false, .maxSpeed=40});
     chassis.waitUntilDone();
     tipper_piston.toggle();
     pros::delay(1000);
@@ -82,27 +84,31 @@ void autonomous() {
     intake_motor.move(0);
     tipper_piston.toggle();
     pros::delay(500);
-    chassis.turnToHeading(111, 1000);
-    chassis.moveToPoint(1, -40.69, 2000);
+    chassis.turnToHeading(113, 1000);
+    chassis.moveToPoint(9, -41.46, 2000);
     intake_motor.move(127);
     pros::delay(1000);
     chassis.waitUntilDone();
     intake_motor.move(0);
     chassis.waitUntilDone();
-    chassis.turnToHeading(43.8, 1000);
-    chassis.moveToPoint(-8.33, -48.97, 1500, {.forwards=false});
-    chassis.turnToHeading(-25.16, 1000);
+    chassis.turnToHeading(50.87, 1000);
+    chassis.moveToPoint(1, -42.48, 1500, {.forwards=false});
     chassis.waitUntilDone();
-    chassis.moveToPoint(-1.43, -61.59, 1000, {.forwards=false, .maxSpeed=50});
+    chassis.turnToHeading(-30.85, 1000);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(7, -57.9, 1000, {.forwards=false, .maxSpeed=50});
     chassis.waitUntilDone();
     tipper_piston.toggle();
     pros::delay(800);
     chassis.waitUntilDone();
-    chassis.moveToPoint(-0.5, -50.5, 1000);
     intake_motor.move(127);
-    chassis.turnToHeading(-70, 1000);
-    chassis.moveToPoint(-24.41, -56.65, 1000, {.forwards=false});
-  */
+    chassis.moveToPoint(0, -38, 1000);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(-138, 1000);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(-26.4, -55, 1000, {.forwards=false});
+    ladyBrownState=SecondState;
+  
 
   //Match Auton Blue Right
   /*
