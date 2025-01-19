@@ -7,12 +7,12 @@
 
 void autonomous() {
     //Skills Auton
-  /*
+    /*
     intake_motor.move(127);
     pros::delay(130);
     intake_motor.move(0);
     pros::delay(500);
-    chassis.moveToPoint(0, 14, 1500);
+    chassis.moveToPoint(0, 14, 1700);
     chassis.waitUntilDone();
     chassis.turnToHeading(-85, 2000);
     chassis.waitUntilDone();
@@ -68,123 +68,177 @@ void autonomous() {
     chassis.moveToPoint(-6, 74, 2500);
     chassis.waitUntilDone();
 */
-
     //Match Auton Blue left
-  
-    chassis.moveToPoint(0, -22.24, 2500, {.forwards=false});
+    /*
+    chassis.moveToPoint(0, -22.24, 1000, {.forwards=false});
     chassis.waitUntilDone();
-    chassis.turnToHeading(31, 1000);
+    chassis.turnToHeading(33, 700);
     chassis.waitUntilDone();
-    chassis.moveToPoint(-7.35, -33, 1500, {.forwards=false, .maxSpeed=40});
+    chassis.moveToPoint(-7.45, -34, 1000, {.forwards=false, .maxSpeed=40});//move to first goal
     chassis.waitUntilDone();
     tipper_piston.toggle();
+    pros::delay(300);
+    intake_motor.move(127);
+    chassis.turnToHeading(-63.68, 800);//turn to colored stake
+    chassis.waitUntilDone();
+    intake_piston.toggle();
+    intake_motor.move(127);
+    chassis.moveToPoint(-34.3, -24.9, 1500, {.maxSpeed=100});//move to colored stake
+    chassis.waitUntilDone();
+    intake_piston.toggle();
+    chassis.moveToPoint(-27, -26, 1400, {.forwards=false});//move back to intake better
+    chassis.waitUntilDone();
+    intake_motor.move(127);
     pros::delay(1000);
+    chassis.waitUntilDone();
+    intake_motor.move(0);
+    tipper_piston.toggle();
+    pros::delay(400);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(-247.4, 800);//turn to neutral stake
+    chassis.moveToPoint(11, -41.46, 1600, {.maxSpeed=100});//move to stack of two rings
     intake_motor.move(127);
     pros::delay(1500);
-    intake_motor.move(0);
-    tipper_piston.toggle();
-    pros::delay(500);
-    chassis.turnToHeading(113, 1000);
-    chassis.moveToPoint(9, -41.46, 2000);
-    intake_motor.move(127);
-    pros::delay(1000);
     chassis.waitUntilDone();
     intake_motor.move(0);
     chassis.waitUntilDone();
-    chassis.turnToHeading(50.87, 1000);
-    chassis.moveToPoint(1, -42.48, 1500, {.forwards=false});
+    chassis.turnToHeading(-89.6, 800);
     chassis.waitUntilDone();
-    chassis.turnToHeading(-30.85, 1000);
+    chassis.moveToPoint(-2.14, -41.47, 1100);
     chassis.waitUntilDone();
-    chassis.moveToPoint(7, -57.9, 1000, {.forwards=false, .maxSpeed=50});
+    chassis.turnToHeading(336, 900);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(7.2666, -65.54, 1200, {.forwards=false, .maxSpeed=50});//move to second goal
     chassis.waitUntilDone();
     tipper_piston.toggle();
-    pros::delay(800);
-    chassis.waitUntilDone();
+    pros::delay(200);
     intake_motor.move(127);
-    chassis.moveToPoint(0, -38, 1000);
+    chassis.moveToPoint(-7.394, -40.83, 1200);//move back
     chassis.waitUntilDone();
-    chassis.turnToHeading(-138, 1000);
+    chassis.turnToHeading(410.64, 700);
     chassis.waitUntilDone();
-    chassis.moveToPoint(-26.4, -55, 1000, {.forwards=false});
-    ladyBrownState=SecondState;
-  
-
-  //Match Auton Blue Right
-  /*
-  chassis.moveToPoint(0.9, -25.57, 2000, {.forwards=false});
-  chassis.waitUntilDone();
-  chassis.moveToPoint(1.299, -37.77, 2500, {.forwards=false, .maxSpeed=50});
-  chassis.waitUntilDone();
-  tipper_piston.toggle();
-  pros::delay(500);
-  chassis.waitUntilDone();
-  intake_motor.move(127);
-  chassis.turnToHeading(-74, 1500);
-  chassis.waitUntilDone();
-  chassis.moveToPoint(-17, -38.77, 3000);
-  chassis.waitUntilDone();
-  chassis.turnToHeading(-145, 1500);
-  chassis.waitUntilDone();
-  chassis.moveToPoint(-25, -54, 2000);
-  chassis.waitUntilDone();
-  chassis.moveToPoint(0, -40, 1500, {.forwards=false});
-  chassis.waitUntilDone();
-  chassis.turnToHeading(-114, 1500);
-  chassis.waitUntilDone();
-  chassis.moveToPoint(-22, -54, 1000);
-  chassis.waitUntilDone();
-  chassis.moveToPoint(0, -40, 1500, {.forwards=false});
+    chassis.moveToPoint(-25.171, -61.16, 1500, {.forwards=false});//touch bar
+    chassis.waitUntilDone();
 */
+//Match Auton Blue Right
+chassis.moveToPoint(-0.08, 14, 1400); //move forward to colored stake
+chassis.waitUntilDone();
+ladyBrownState=ForwardState;
+pros::delay(1000);
+ladyBrownState=StartingState;
+chassis.moveToPoint(3, 0, 1300, {.forwards=false});
+chassis.waitUntilDone();
+chassis.turnToHeading(3.4, 800);
+chassis.waitUntilDone();
+chassis.moveToPoint(0.32, -21.79, 1300, {.forwards=false, .maxSpeed=35});//move to goal and tip it
+chassis.waitUntilDone();
+tipper_piston.toggle();
+pros::delay(400);
+chassis.waitUntilDone();
+chassis.moveToPoint(-1.03, -34.5, 1000, {.forwards=false}); 
+chassis.waitUntilDone();
+intake_motor.move(127);
+chassis.turnToHeading(-112.5, 1000);//turn towards rings on right
+chassis.waitUntilDone();
+chassis.moveToPoint(-24.5, -50, 1500, {.maxSpeed=90});//move to ring and intake it
+chassis.waitUntilDone();
+pros::delay(1000);
+chassis.waitUntilDone();
+chassis.turnToHeading(-210.4, 1200);//turn to stack of four
+chassis.waitUntilDone();
+chassis.moveToPoint(-18.5, -61.5, 2000);//move to stack
+chassis.waitUntilDone();
+pros::delay(1000);
+chassis.waitUntilDone();
+chassis.turnToHeading(-156.3, 1000);//turn to gt right ring
+chassis.waitUntilDone();
+chassis.moveToPoint(-22.6, -63.2, 1500);
+chassis.waitUntilDone();
+pros::delay(800);
+chassis.waitUntilDone();
+chassis.moveToPoint(-6.782, -40.2, 1500, {.forwards=false});//move back
+chassis.waitUntilDone();
+chassis.turnToHeading(-63.35, 1000);
+chassis.waitUntilDone();
+chassis.moveToPoint(13.64, -51.99, 1500, {.forwards=false});//touch bar
 
-  //Match Auton Red Left
+  //Match Auton Red Left Not Official
   /*
   chassis.moveToPoint(0, -26.6, 2000, {.forwards=false});
   chassis.waitUntilDone();
-  chassis.moveToPoint(0, -36.6, 1500, {.forwards=false, .maxSpeed=50});
+  chassis.moveToPoint(0, -36.6, 1500, {.forwards=false, .maxSpeed=40});
   chassis.waitUntilDone();
   tipper_piston.toggle();
   pros::delay(500);
   chassis.waitUntilDone();
   intake_motor.move(127);
-  chassis.turnToHeading(74, 1500);
+  chassis.turnToHeading(89, 1500);
   chassis.waitUntilDone();
-  chassis.moveToPoint(17.5, -36, 1500);
+  chassis.moveToPoint(20.8, -36, 1500);
   chassis.waitUntilDone();
-  chassis.turnToHeading(152.94, 1500);
+  chassis.turnToHeading(177, 1500);
   chassis.waitUntilDone();
-  chassis.moveToPoint(27.56, -49, 1500);
+  chassis.moveToPoint(21.27, -51.7, 1500);
   chassis.waitUntilDone();
-  chassis.moveToPoint(26.6, -35, 2000, {.forwards=false});
+  chassis.turnToHeading(125, 900);
   chassis.waitUntilDone();
-  chassis.turnToPoint(37, -35.49, 1500);
+  chassis.moveToPoint(25.78, -55.43, 1000);
   chassis.waitUntilDone();
-  chassis.moveToPoint(37, -35, 1500);
+  chassis.moveToPoint(22, -53, 1000, {.forwards=false});
   chassis.waitUntilDone();
-  chassis.turnToPoint(37, -52.49, 1500);
+  chassis.turnToHeading(100.2, 1000);
   chassis.waitUntilDone();
-  chassis.moveToPoint(40, -52.49, 1500);
+  chassis.moveToPoint(32.3, -54.8, 1000);
   chassis.waitUntilDone();
-  chassis.moveToPoint(43, -51.9, 1500, {.forwards=false});
+  chassis.moveToPoint(6.9, -48.42, 1000, {.forwards=false});
   */
 
-  //Match Auton Red Right
-  /*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-    chassis.moveToPoint(0, -16, 2500, {.forwards=false});
+  //Match Auton Red Right Not Official
+  /*
+  chassis.moveToPoint(0, -19.46, 1000, {.forwards=false});
     chassis.waitUntilDone();
-    chassis.turnToHeading(-30, 1000);
+    chassis.turnToHeading(-32.36, 700);
     chassis.waitUntilDone();
-    chassis.moveToPoint(10, -35, 1500, {.forwards=false, .maxSpeed=50});
+    chassis.moveToPoint(7.65, -36.18, 1200, {.forwards=false, .maxSpeed=40});//move to first goal
     chassis.waitUntilDone();
     tipper_piston.toggle();
-    pros::delay(1000);
-    chassis.waitUntilDone();
+    pros::delay(300);
     intake_motor.move(127);
-    pros::delay(1500);
-    chassis.turnToHeading(-111, 1000);
-    chassis.moveToPoint(-1, -38, 2000);
+    chassis.turnToHeading(61.56, 800);//turn to colored stake
+    chassis.waitUntilDone();
+    intake_piston.toggle();
+    intake_motor.move(127);
+    chassis.moveToPoint(30.82, -22.055, 1500, {.maxSpeed=80});//move to colored stake
+    chassis.waitUntilDone();
+    intake_piston.toggle();
+    chassis.moveToPoint(27.068, -24.85, 1500, {.forwards=false});//move back to intake better    intake_piston.toggle();
+    chassis.waitUntilDone();
+    chassis.turnToHeading(-124.3, 800);//turn to neutral stake
+    chassis.moveToPoint(-6.77, -44.95, 1800, {.maxSpeed=100});//move to stack of two rings
+    intake_motor.move(127);
+    pros::delay(1200);
     chassis.waitUntilDone();
     */
-
-
+/*
+    intake_motor.move(0);
+    pros::delay(300);
+    chassis.waitUntilDone();
+    chassis.turnToHeading(-53.85, 900);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(3.29, -56, 1500, {.forwards=false});
+    chassis.waitUntilDone();
+    chassis.turnToHeading(29.56, 900);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(-3.497, -61.98, 1600, {.forwards=false, .maxSpeed=50});//move to second goal
+    chassis.waitUntilDone();
+    tipper_piston.toggle();
+    pros::delay(200);
+    intake_motor.move(127);
+    chassis.moveToPoint(7.46, -40, 1300);//move back
+    chassis.waitUntilDone();
+    chassis.turnToHeading(-43, 800);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(23.88, -56.68, 1500, {.forwards=false});//touch bar
+    chassis.waitUntilDone();
+    */
 }
